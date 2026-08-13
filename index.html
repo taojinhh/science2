@@ -303,7 +303,7 @@ function stopSims(){ SIMRUN.forEach(f=>f()); SIMRUN=[]; }
 
 /* --- 화석으로 과거 환경 알기 --- */
 SIM.fossil = {
-  title:'화석을 보면 그때의 환경을 알 수 있어요', w:660, h:290, anim:false,
+  title:'화석을 보면 그때의 환경을 알 수 있어요', w:660, h:312, anim:false,
   controls:[{key:'k',label:'발견된 화석',type:'select',value:'coral',
     options:[{v:'coral',t:'산호 화석'},{v:'trilo',t:'삼엽충 화석'},{v:'fern',t:'양치식물 화석'},{v:'shell',t:'조개 화석'}]}],
   note:'화석은 <b>그 생물이 살던 환경</b>을 알려 주는 단서입니다. 지금 그 생물이 어디에 사는지를 보면, 과거 그 지역이 어떤 곳이었는지 짐작할 수 있어요.',
@@ -329,7 +329,7 @@ SIM.fossil = {
     txt(g,'② 그렇다면 과거 이곳은?',350,176,'#5a6b64',12.5,'left',true);
     chipbox(g,350,192,280,42,'#e6fcf5','#63e6be',D.past,'#0b7285',13);
     chipbox(g,350,244,280,32,'#fff4e6','#ffc078','주로 산출되는 시대 : '+D.era,'#b35309',12.5);
-    txt(g,'※ 화석으로 과거 생물의 구조·특징, 진화 과정, 당시 지구 환경을 알 수 있어요.',30,268,'#5a6b64',12);
+    txt(g,'※ 화석으로 과거 생물의 구조·특징, 진화 과정, 당시 지구 환경을 알 수 있어요.',30,296,'#5a6b64',12);
   }
 };
 
@@ -390,13 +390,14 @@ SIM.geotime = {
 
 /* --- 대멸종 --- */
 SIM.massext = {
-  title:'다섯 번의 대멸종 — 생물의 수는 어떻게 변했을까?', w:660, h:318, anim:false,
+  title:'다섯 번의 대멸종 — 생물의 수는 어떻게 변했을까?', w:660, h:356, anim:false,
   controls:[{key:'n',label:'대멸종 번호',type:'select',value:5,
     options:[{v:1,t:'1차 (약 4.4억 년 전)'},{v:2,t:'2차 (약 3.7억 년 전)'},{v:3,t:'3차 (약 2.5억 년 전, 최대)'},{v:4,t:'4차 (약 2.0억 년 전)'},{v:5,t:'5차 (약 0.66억 년 전)'}]}],
   note:'대멸종은 <b>지구 환경이 갑작스럽게 변해</b> 많은 생물이 짧은 기간에 넓은 지역에서 멸종하는 것입니다. 살아남아 새 환경에 적응한 생물이 다양한 종으로 진화해 오늘의 생물다양성을 만들었어요.',
   draw(g,p,t,W,H){
     const L=55,B=215,Wd=545,Ht=150;
-    axes(g,L,B,Wd,Ht,'시간(억 년 전)','해양 생물 과의 수');
+    axes(g,L,B,Wd,Ht,'','해양 생물 과의 수');
+    txt(g,'시간(억 년 전)',L+Wd,B+34,'#868e96',10.5,'right');
     const TOT=5.6;
     const px = y => L + (TOT-y)/TOT*Wd;
     // 곡선(모식)
@@ -423,10 +424,10 @@ SIM.massext = {
       4:{c:'화산 활동과 급격한 기후 변화가 원인으로 꼽힙니다.',a:'경쟁자가 줄어들면서 중생대에 공룡이 크게 번성했습니다.'},
       5:{c:'소행성 충돌설이 가장 유명합니다(멕시코 유카탄반도 충돌 흔적).',a:'공룡과 암모나이트가 멸종하고, 포유류와 속씨식물이 번성했습니다.'}
     }[p.n];
-    txt(g,'💥 원인 가설 : ',L,258,'#5a6b64',12.5,'left',true);
-    wrapTxt(g,info.c,L+80,258,470,16,'#1c2b26',13);
-    txt(g,'🌱 그 뒤의 변화 : ',L,285,'#5a6b64',12.5,'left',true);
-    wrapTxt(g,info.a,L+95,285,455,16,'#1c2b26',13);
+    txt(g,'💥 원인 가설',L,262,'#5a6b64',12.5,'left',true);
+    wrapTxt(g,info.c,L,284,545,17,'#1c2b26',13);
+    txt(g,'🌱 그 뒤의 변화',L,318,'#5a6b64',12.5,'left',true);
+    wrapTxt(g,info.a,L,340,545,17,'#1c2b26',13);
   }
 };
 
@@ -509,38 +510,43 @@ SIM.natsel = {
 
 /* --- 기린(자연선택설) --- */
 SIM.giraffe = {
-  title:'다윈의 자연선택설로 본 기린의 진화', w:660, h:312, anim:false,
+  title:'다윈의 자연선택설로 본 기린의 진화', w:660, h:334, anim:false,
   controls:[{key:'s',label:'단계',type:'select',value:1,
-    options:[{v:1,t:'1단계 · 과잉 생산과 변이'},{v:2,t:'2단계 · 생존경쟁'},{v:3,t:'3단계 · 자연선택'},{v:4,t:'4단계 · 진화'}]}],
+    options:[{v:1,t:'1단계 · 과잉 생산과 변이'},{v:2,t:'2단계 · 생존경쟁'},{v:3,t:'3단계 · 자연선택'},{v:4,t:'4단계 · 진화(다음 세대)'}]}],
   note:'다윈의 자연선택설 : <b>과잉 생산 → 변이 → 생존경쟁 → 자연선택 → 진화</b>. "노력해서 목이 길어진 것"이 아니라, <b>원래 다양했던 것 중 유리한 것이 살아남은 것</b>입니다.',
   draw(g,p,t,W,H){
-    const neck=[1,0.55,1.35,0.8,1.6,0.65,1.15,1.45];
-    const alive = p.s>=3 ? neck.map(n=> n>=1.1) : neck.map(()=>true);
+    const gen1=[1.00,0.55,1.35,0.80,1.60,0.65,1.15,1.45];   // 1세대 : 목 길이가 다양
+    const gen2=[1.30,1.50,1.20,1.60,1.35,1.45,0.95,1.55];   // 2세대 : 목이 긴 기린의 비율이 늘어남
+    const necks = (p.s===4)? gen2 : gen1;
+    const REACH = 1.1, base = 206;
     // 나무
-    rect(g,500,60,16,150,'#8d6e4f',3);
-    circle(g,508,58,42,'#2f9e44'); circle(g,470,72,28,'#37b24d'); circle(g,548,74,26,'#37b24d');
-    txt(g,'높은 곳의 잎',508,20,'#2f9e44',12,'center',true);
-    dash(g,60,72,470,72,'#adb5bd',1.4);
-    txt(g,'← 여기까지 닿아야 먹을 수 있어요',66,60,'#868e96',11);
-    neck.forEach((n,i)=>{
-      const x=55+i*52, base=210, nl=60*n;
-      const dead = !alive[i];
-      const c = dead? '#ced4da' : '#f0a04b';
+    rect(g,500,90,16,116,'#8d6e4f',3);
+    circle(g,508,90,40,'#2f9e44'); circle(g,472,102,26,'#37b24d'); circle(g,546,104,24,'#37b24d');
+    txt(g,'높은 곳의 잎',508,38,'#2f9e44',12,'center',true);
+    const lineY = base-32-60*REACH-13;
+    dash(g,52,lineY,468,lineY,'#adb5bd',1.4);
+    txt(g,'╌╌ 점선 : 여기까지 닿아야 잎을 먹을 수 있어요',30,34,'#868e96',11);
+    necks.forEach((n,i)=>{
+      const x=54+i*52, nl=60*n, reach = n>=REACH;
+      const dead = (p.s===3) && !reach;
+      const c = dead? '#dee2e6' : '#f0a04b';
       rect(g,x-11,base-32,22,32,c,4);
       rect(g,x-3,base-32-nl,7,nl,c,3);
       circle(g,x+1,base-32-nl-6,7,c);
       line(g,x-7,base,x-7,base+16,c,3.5); line(g,x+7,base,x+7,base+16,c,3.5);
-      if(p.s>=2 && !dead) txt(g,'✓',x,base-32-nl-24,'#2f9e44',15,'center',true);
-      if(p.s>=2 && dead) txt(g,'✕',x,base-32-nl-24,'#e03131',15,'center',true);
+      if(p.s===2 || p.s===3) txt(g, reach?'✓':'✕', x, base-32-nl-26, reach?'#2f9e44':'#e03131',15,'center',true);
     });
+    const longCnt = necks.filter(n=>n>=REACH).length;
+    txt(g, (p.s===4? '2세대(자손) — ':'1세대 — ')+'목이 긴 기린 '+longCnt+' / 8 마리', 52, 244, p.s===4?'#2b8a3e':'#868e96',12,'left',true);
+    if(p.s===3) txt(g,'회색 = 잎을 먹지 못해 죽은 기린',480,244,'#adb5bd',11.5,'right');
     const msg={
       1:['① 과잉 생산 · 변이','많은 수의 기린이 태어났고, 목 길이는 짧은 것부터 긴 것까지 다양했습니다(변이).'],
-      2:['② 생존경쟁','먹이(높은 곳의 잎)를 두고 개체 사이에 경쟁이 일어납니다.'],
-      3:['③ 자연선택','목이 짧은 기린은 잎을 먹기 어려워 죽고, 목이 긴 기린이 더 잘 살아남았습니다.'],
-      4:['④ 진화','살아남은 목이 긴 기린이 자손을 남겨, 목이 긴 기린의 비율이 점점 늘어났습니다. 이 과정이 반복되어 진화가 일어납니다.']
+      2:['② 생존경쟁','먹이(높은 곳의 잎)를 두고 경쟁이 일어납니다. 점선까지 닿는 기린(✓)과 닿지 못하는 기린(✕)으로 갈립니다.'],
+      3:['③ 자연선택','목이 짧아 잎을 먹지 못한 기린은 죽고(회색), 목이 긴 기린만 살아남았습니다.'],
+      4:['④ 진화','살아남은 기린이 낳은 다음 세대입니다. 목이 긴 기린의 비율이 4마리에서 7마리로 늘었습니다. 이 과정이 반복되어 진화가 일어납니다.']
     }[p.s];
-    chipbox(g,30,232,600,26,'#e6fcf5','#63e6be',msg[0],'#0b7285',13);
-    wrapTxt(g,msg[1],32,276,592,17,'#1c2b26',13.5);
+    chipbox(g,30,258,600,28,'#e6fcf5','#63e6be',msg[0],'#0b7285',13);
+    wrapTxt(g,msg[1],32,306,596,17,'#1c2b26',13.5);
   }
 };
 
@@ -661,68 +667,72 @@ SIM.habitat = {
 
 /* --- 산화·환원(산소 이동) --- */
 SIM.redoxO = {
-  title:'산소가 옮겨 간다 — 산화 구리(Ⅱ) + 탄소', w:660, h:300,
+  title:'산소가 옮겨 간다 — 산화 구리(Ⅱ) + 탄소', w:660, h:326,
   note:'탄소는 산소를 <b>얻어</b> 이산화 탄소가 되고(산화), 산화 구리(Ⅱ)는 산소를 <b>잃어</b> 구리가 됩니다(환원). 산화와 환원은 <b>항상 동시에</b> 일어나요.',
   draw(g,p,t,W,H){
-    const ph = (t%6)/6; // 0~1
-    txt(g,'2CuO + C  →  2Cu + CO₂',330,32,'#1c2b26',18,'center',true);
-    // 왼쪽 : 산화구리
-    circle(g,150,120,30,'#495057'); txt(g,'Cu',150,120,'#fff',14,'center',true);
-    circle(g,150,120,30,'rgba(0,0,0,0)');
-    // 산소 두 개가 이동
-    const ox = 150 + (430-150)*Math.min(1,ph*1.6);
-    const oy = 120 + Math.sin(Math.min(1,ph*1.6)*Math.PI)*-40;
-    circle(g,ox,oy,15,'#e03131'); txt(g,'O',ox,oy,'#fff',13,'center',true);
+    const ph=(t%6)/6, done = ph>0.66;
+    const move = Math.min(1, ph*1.5);
+    txt(g,'2CuO  +  C   →   2Cu  +  CO₂',330,32,'#1c2b26',19,'center',true);
+    const cu=[[112,150],[204,150]];          // 구리 원자 2개
+    const oStart=[[136,124],[228,124]];      // 산소 원자 2개(처음엔 구리에 붙어 있음)
+    const cx=470, cy=150;                    // 탄소 원자 1개
+    const oEnd=[[cx-42,cy],[cx+42,cy]];      // 이산화 탄소의 산소 2개
     // 탄소
-    circle(g,430,190,26,'#212529'); txt(g,'C',430,190,'#fff',14,'center',true);
-
-    txt(g,'산화 구리(Ⅱ) : 검은색',150,175,'#5a6b64',12,'center');
-    txt(g,'탄소(코크스)',430,232,'#5a6b64',12,'center');
-
-    if(ph>0.62){
-      circle(g,150,120,30,'#e8590c'); txt(g,'Cu',150,120,'#fff',14,'center',true);
-      txt(g,'구리 : 붉은색 ✨',150,175,'#e8590c',12,'center',true);
-      circle(g,430,190,26,'#212529'); txt(g,'C',430,190,'#fff',14,'center',true);
-      circle(g,404,190,13,'#e03131'); circle(g,456,190,13,'#e03131');
-      txt(g,'이산화 탄소',430,232,'#e03131',12,'center',true);
-    }
-    chipbox(g,40,258,270,32,'#e7f5ff','#74c0fc','환원 : 산소를 잃음 (CuO → Cu)','#1864ab',13);
-    chipbox(g,350,258,270,32,'#ffe3e3','#ffa8a8','산화 : 산소를 얻음 (C → CO₂)','#c92a2a',13);
-    txt(g,'※ 석회수가 뿌옇게 흐려지면 이산화 탄소가 생겼다는 증거!',40,244,'#868e96',11.5);
+    circle(g,cx,cy,30,'#212529'); txt(g,'C',cx,cy,'#fff',16,'center',true);
+    // 구리 2개
+    cu.forEach(q=>{ circle(g,q[0],q[1],27, done?'#e8590c':'#495057'); txt(g,'Cu',q[0],q[1],'#fff',14,'center',true); });
+    // 산소 2개 (구리 → 탄소로 이동)
+    oStart.forEach((s0,i)=>{
+      const e0=oEnd[i];
+      const x=s0[0]+(e0[0]-s0[0])*move;
+      const y=s0[1]+(e0[1]-s0[1])*move - Math.sin(move*Math.PI)*46;
+      if(done && Math.abs(x-cx)<50) line(g,cx,cy,x,y,'#e03131',3);
+      circle(g,x,y,14,'#e03131'); txt(g,'O',x,y,'#fff',13,'center',true);
+    });
+    // 이름표 (반응 전 ↔ 반응 후 바꿔 표시)
+    txt(g, done? '구리 Cu × 2 (붉은색)' : '산화 구리(Ⅱ) CuO × 2 (검은색)', 158, 206, done?'#e8590c':'#495057',13,'center',true);
+    txt(g, done? '이산화 탄소 CO₂ × 1' : '탄소(코크스) C × 1', 470, 206, done?'#e03131':'#495057',13,'center',true);
+    txt(g,'※ 석회수가 뿌옇게 흐려지면 이산화 탄소가 생겼다는 증거!',30,232,'#868e96',11.5);
+    chipbox(g,30,250,290,32,'#e7f5ff','#74c0fc','환원 : 산소를 잃음 (CuO → Cu)','#1864ab',13);
+    chipbox(g,340,250,290,32,'#ffe3e3','#ffa8a8','산화 : 산소를 얻음 (C → CO₂)','#c92a2a',13);
+    chipbox(g,30,290,600,28,'#e6fcf5','#63e6be','원자 수 확인 : Cu 2개 · O 2개 · C 1개 — 반응 전과 후가 같습니다','#0b7285',12.5);
   }
 };
 
 /* --- 산화·환원(전자 이동) --- */
 SIM.redoxE = {
-  title:'전자가 옮겨 간다 — 마그네슘의 연소', w:660, h:290,
+  title:'전자가 옮겨 간다 — 마그네슘의 연소', w:660, h:330,
   note:'산소가 없어도 <b>전자의 이동</b>으로 산화·환원을 설명할 수 있습니다. 전자를 <b>잃으면 산화</b>, 전자를 <b>얻으면 환원</b>이에요. (잃산얻환!)',
   draw(g,p,t,W,H){
-    const ph=(t%5)/5;
-    txt(g,'2Mg + O₂  →  2MgO',330,30,'#1c2b26',18,'center',true);
-    circle(g,160,140,38,'#adb5bd'); txt(g,'Mg',160,140,'#212529',15,'center',true);
-    circle(g,470,140,38,'#e03131'); txt(g,'O',470,140,'#fff',15,'center',true);
-    // 전자 2개
-    for(let k=0;k<2;k++){
-      const q=Math.min(1,Math.max(0,ph*1.5-k*0.12));
-      const x=160+ (470-160)*q, y=140-55*Math.sin(q*Math.PI)-k*8;
-      circle(g,x,y,9,'#4c6ef5'); txt(g,'e⁻',x,y,'#fff',10,'center',true);
-    }
-    if(ph>0.72){
-      txt(g,'Mg²⁺',160,140,'#212529',15,'center',true);
-      txt(g,'O²⁻',470,140,'#fff',15,'center',true);
-      chipbox(g,230,200,200,32,'#fff9db','#ffd43b','→ MgO (산화 마그네슘)','#856404',13.5);
-    }
-    txt(g,'전자를 잃음',160,196,'#c92a2a',13,'center',true);
-    txt(g,'= 산화',160,214,'#c92a2a',13,'center',true);
-    txt(g,'전자를 얻음',470,196,'#1864ab',13,'center',true);
-    txt(g,'= 환원',470,214,'#1864ab',13,'center',true);
-    chipbox(g,40,250,580,32,'#e6fcf5','#63e6be','전자를 잃은 것이 있으면 반드시 그 전자를 얻은 것이 있습니다 → 동시에!','#0b7285',12.5);
+    const ph=(t%6)/6, done = ph>0.72;
+    txt(g,'2Mg  +  O₂   →   2MgO',330,30,'#1c2b26',19,'center',true);
+    const mg=[[110,148],[198,148]];      // 마그네슘 원자 2개
+    const ox=[[452,148],[520,148]];      // 산소 분자(원자 2개)
+    // 산소 분자 결합선
+    if(!done) line(g,ox[0][0],ox[0][1],ox[1][0],ox[1][1],'#e03131',5);
+    mg.forEach(q=>{ circle(g,q[0],q[1],31,'#adb5bd'); txt(g, done?'Mg²⁺':'Mg', q[0],q[1],'#212529', done?13:15,'center',true); });
+    ox.forEach(q=>{ circle(g,q[0],q[1],29,'#e03131'); txt(g, done?'O²⁻':'O', q[0],q[1],'#fff', done?13:15,'center',true); });
+    // 전자 4개 : 마그네슘 1개당 2개씩 산소로 이동
+    const paths=[[0,0],[0,1],[1,0],[1,1]];
+    paths.forEach((pr,k)=>{
+      const q=Math.min(1, Math.max(0, ph*2.0 - k*0.2));
+      if(q<=0.05 || q>=0.95) return;
+      const x=mg[pr[0]][0] + (ox[pr[1]][0]-mg[pr[0]][0])*q;
+      const y=148 - Math.sin(q*Math.PI)*(54+k*14);
+      circle(g,x,y,10,'#4c6ef5'); txt(g,'e⁻',x,y,'#fff',10,'center',true);
+    });
+    txt(g, done? '마그네슘 이온 Mg²⁺ × 2' : '마그네슘 Mg × 2', 154, 200,'#495057',13,'center',true);
+    txt(g, done? '산화 이온 O²⁻ × 2' : '산소 분자 O₂ × 1 (원자 2개)', 486, 200,'#c92a2a',13,'center',true);
+    chipbox(g,30,218,290,32,'#ffe3e3','#ffa8a8','전자를 잃음 → 산화 (Mg → Mg²⁺)','#c92a2a',13);
+    chipbox(g,340,218,290,32,'#e7f5ff','#74c0fc','전자를 얻음 → 환원 (O → O²⁻)','#1864ab',13);
+    chipbox(g,30,258,600,32,'#fff9db','#ffd43b', done? '두 이온이 결합 → 산화 마그네슘 MgO × 2' : '옮겨 가는 전자 : 모두 4개 (Mg 1개가 2개씩 내놓음)','#856404',13.5);
+    txt(g,'※ 전자를 잃은 것이 있으면 반드시 그 전자를 얻은 것이 있습니다 → 산화와 환원은 동시에!',30,308,'#868e96',11.5);
   }
 };
 
 /* --- 산화·환원의 이용 --- */
 SIM.redoxUse = {
-  title:'생활 속 산화·환원 반응 찾기', w:660, h:314, anim:false,
+  title:'생활 속 산화·환원 반응 찾기', w:660, h:322, anim:false,
   controls:[{key:'k',label:'어떤 반응?',type:'select',value:'iron',
     options:[{v:'iron',t:'철의 제련'},{v:'burn',t:'화석 연료의 연소'},{v:'photo',t:'광합성'},{v:'fuel',t:'수소 연료 전지'}]}],
   note:'광합성 · 철의 제련 · 화석 연료의 연소는 모두 <b>산소가 이동하는 반응</b>이며, 인류와 자연의 역사를 바꾼 화학 반응입니다.',
@@ -744,14 +754,16 @@ SIM.redoxUse = {
     g.font='44px "Malgun Gothic",sans-serif'; g.textAlign='center'; g.textBaseline='middle'; g.fillStyle='#000';
     g.fillText(D.ic,70,80);
     chipbox(g,130,54,500,50,'#10231d','#10231d',D.eq,'#e6f2ec',17);
-    chipbox(g,40,126,285,44,'#ffe3e3','#ffa8a8','산화','#c92a2a',13);
-    wrapTxt(g,D.ox,52,158,265,15,'#c92a2a',12.5);
-    chipbox(g,345,126,285,44,'#e7f5ff','#74c0fc','환원','#1864ab',13);
-    wrapTxt(g,D.rd,357,158,265,15,'#1864ab',12.5);
-    txt(g,'🔎 왜 이 반응이 일어날까?',40,196,'#5a6b64',12.5,'left',true);
-    wrapTxt(g,D.why,40,218,590,16,'#1c2b26',13.5);
-    txt(g,'🌏 이 반응이 바꾼 것',40,254,'#5a6b64',12.5,'left',true);
-    wrapTxt(g,D.eff,40,276,590,16,'#1c2b26',13.5);
+    rect(g,40,120,285,64,'#ffe3e3',10); orect(g,40,120,285,64,'#ffa8a8',10,1.5);
+    txt(g,'산화',53,137,'#c92a2a',13,'left',true);
+    wrapTxt(g,D.ox,53,160,260,15,'#c92a2a',12.5);
+    rect(g,345,120,285,64,'#e7f5ff',10); orect(g,345,120,285,64,'#74c0fc',10,1.5);
+    txt(g,'환원',358,137,'#1864ab',13,'left',true);
+    wrapTxt(g,D.rd,358,160,260,15,'#1864ab',12.5);
+    txt(g,'🔎 왜 이 반응이 일어날까?',40,202,'#5a6b64',12.5,'left',true);
+    wrapTxt(g,D.why,40,224,590,16,'#1c2b26',13.5);
+    txt(g,'🌏 이 반응이 바꾼 것',40,258,'#5a6b64',12.5,'left',true);
+    wrapTxt(g,D.eff,40,280,590,16,'#1c2b26',13.5);
   }
 };
 
@@ -847,12 +859,13 @@ SIM.neutral = {
     rect(g,45,54,230,150,btb,10); orect(g,45,54,230,150,'#adb5bd',10,1.6);
     txt(g,'BTB 용액을 넣은 혼합 용액',160,220,'#5a6b64',12,'center');
     // 이온 그리기
-    let seed=5; const rnd=()=>{ seed=(seed*1103515245+12345)%2147483648; return seed/2147483648; };
-    for(let i=0;i<react;i++){ const x=60+rnd()*200,y=68+rnd()*122; circle(g,x,y,8,'#adb5bd'); txt(g,'물',x,y,'#fff',9,'center',true); }
-    for(let i=0;i<Math.abs(left);i++){
-      const x=60+rnd()*200,y=68+rnd()*122;
-      circle(g,x,y,9,left>0?'#fa5252':'#4dabf7'); txt(g,left>0?'H⁺':'OH⁻',x,y,'#fff',left>0?9:8,'center',true);
-    }
+    const slot=[]; for(let r=0;r<3;r++) for(let c=0;c<4;c++) slot.push([72+c*56, 86+r*40]);
+    let si=0;
+    for(let i=0;i<react && si<slot.length;i++,si++){
+      circle(g,slot[si][0],slot[si][1],10,'#adb5bd'); txt(g,'물',slot[si][0],slot[si][1],'#fff',9.5,'center',true); }
+    for(let i=0;i<Math.abs(left) && si<slot.length;i++,si++){
+      circle(g,slot[si][0],slot[si][1],11,left>0?'#fa5252':'#4dabf7');
+      txt(g,left>0?'H⁺':'OH⁻',slot[si][0],slot[si][1],'#fff',left>0?9.5:8.5,'center',true); }
     // 이온 개수 막대
     txt(g,'섞기 전 이온 개수',300,54,'#5a6b64',12.5,'left',true);
     rect(g,300,66,a*20,20,'#fa5252',4); txt(g,'H⁺ '+a+'개',300+a*20+8,76,'#c92a2a',12,'left',true);
@@ -1079,7 +1092,7 @@ SIM.foodweb = {
 };
 
 SIM.pyramid = {
-  title:'생태피라미드 — 위로 갈수록 왜 줄어들까?', w:660, h:300, anim:false,
+  title:'생태피라미드 — 위로 갈수록 왜 줄어들까?', w:660, h:328, anim:false,
   controls:[{key:'e',label:'다음 단계로 전달되는 비율',min:5,max:30,step:5,value:10,unit:' %'}],
   note:'하위 영양단계의 에너지 일부는 생명활동에 쓰이거나 <b>열에너지로 방출</b>되고, 나머지만 위로 전달됩니다. 그래서 에너지양·개체수·생체량이 위로 갈수록 줄어 피라미드 모양이 돼요.',
   draw(g,p,t,W,H){
@@ -1088,20 +1101,17 @@ SIM.pyramid = {
     let v=1000;
     const vals=[];
     for(let i=0;i<4;i++){ vals.push(v); v=v*p.e/100; }
-    const maxw=430;
+    const maxw=300;
     vals.forEach((val,i)=>{
-      const w=Math.max(24, maxw*Math.pow(val/vals[0],0.42));
+      const w=Math.max(16, maxw*Math.pow(val/vals[0],0.42));
       const y=228-i*52;
-      rect(g,330-w/2,y,w,44,cols[i],6);
-      txt(g,names[i],330,y+22,'#fff',12.5,'center',true);
-      txt(g,val>=1? val.toFixed(val<10?1:0)+' 단위' : val.toFixed(2)+' 단위', 330+w/2+10, y+22, cols[i],12,'left',true);
-      if(i<3){
-        const lost=val-vals[i+1];
-        txt(g,'열에너지로 방출·생명활동에 사용 : '+lost.toFixed(lost<10?1:0),330-w/2-12,y-4,'#e8590c',11,'right');
-      }
+      txt(g,names[i],30,y+22,cols[i],12.5,'left',true);
+      rect(g,400-w/2,y,w,44,cols[i],6);
+      txt(g,(val>=1? val.toFixed(val<10?1:0) : val.toFixed(2))+' 단위', 632, y+22, cols[i],12,'right',true);
     });
-    txt(g,'에너지가 이동하는 방향 ↑',330,30,'#5a6b64',12.5,'center',true);
-    chipbox(g,40,258,580,32,'#fff4e6','#ffc078',
+    txt(g,'에너지가 이동하는 방향 ↑',400,30,'#5a6b64',12.5,'center',true);
+    txt(g,'※ 위로 못 간 에너지는 생명활동에 쓰이거나 열에너지로 방출됩니다.',30,272,'#e8590c',11.5);
+    chipbox(g,40,290,580,32,'#fff4e6','#ffc078',
       '전달 비율이 '+p.e+'%면, 3차 소비자에게 남는 에너지는 처음의 '+(Math.pow(p.e/100,3)*100).toFixed(2)+'% 뿐입니다.','#b35309',13);
   }
 };
@@ -1119,12 +1129,19 @@ SIM.balance = {
       {p:1,c1:1,c2:1,d:'2차 소비자가 1차 소비자를 많이 먹어 1차 소비자가 줄고, 생산자가 회복되어 다시 평형을 이룹니다.'}
     ][p.s-1];
     const rows=[['2차 소비자','#ffd43b',S.c2],['1차 소비자','#94d82d',S.c1],['생산자','#2b8a3e',S.p]];
+    // 직전 단계의 크기를 흐린 테두리로 함께 보여 준다(①단계와 ④단계를 구별하기 위해)
+    const PREV={2:[1,1,1],3:[1,1.9,1],4:[1.7,1.9,0.55]}[p.s];   // [2차, 1차, 생산자]
     rows.forEach((r,i)=>{
       const w=100*r[2]*1.8, y=70+i*58;
       txt(g,r[0],30,y+20,'#5a6b64',12.5,'left',true);
+      let edge=w;
+      if(PREV){
+        const pw=100*PREV[i]*1.8; edge=Math.max(w,pw);
+        if(Math.abs(pw-w)>4){ orect(g,150,y,pw,40,'#ced4da',6,1.4); txt(g,'직전 단계',150+pw-6,y-7,'#adb5bd',9.5,'right'); }
+      }
       rect(g,150,y,w,40,r[1],6);
       const mark = r[2]>1.2?'▲ 증가': r[2]<0.8?'▼ 감소':'평형';
-      txt(g,mark,150+w+12,y+20, r[2]>1.2?'#e03131': r[2]<0.8?'#1971c2':'#2f9e44',12.5,'left',true);
+      txt(g,mark,150+edge+12,y+20, r[2]>1.2?'#e03131': r[2]<0.8?'#1971c2':'#2f9e44',12.5,'left',true);
     });
     const st = p.s===1?['생태계평형 상태','#2f9e44','#d3f9d8']
       : p.s===4?['생태계평형 회복','#2f9e44','#d3f9d8']
@@ -1300,10 +1317,13 @@ SIM.fusion = {
     const ph=(t%5)/5;
     txt(g,'태양 중심부 (약 1500만 K)',330,26,'#b35309',13,'center',true);
     const tgt=[330,140];
-    for(let k=0;k<4;k++){
-      const a=TAU*k/4+0.6, R=110*(1-Math.min(1,ph*1.4));
-      const x=tgt[0]+Math.cos(a)*R, y=tgt[1]+Math.sin(a)*R*0.75;
-      circle(g,x,y,15,'#e03131'); txt(g,'H',x,y,'#fff',12,'center',true);
+    if(ph<=0.7){
+      for(let k=0;k<4;k++){
+        const a=TAU*k/4+0.6, R=Math.max(38,110*(1-Math.min(1,ph*1.4)));
+        const x=tgt[0]+Math.cos(a)*R, y=tgt[1]+Math.sin(a)*R*0.75;
+        circle(g,x,y,15,'#e03131'); txt(g,'H',x,y,'#fff',12,'center',true);
+      }
+      txt(g,'수소 원자핵 4개',tgt[0],tgt[1],'#868e96',11.5,'center');
     }
     if(ph>0.7){
       circle(g,tgt[0],tgt[1],26,'#f59f00'); txt(g,'He',tgt[0],tgt[1],'#fff',14,'center',true);
@@ -1407,7 +1427,7 @@ SIM.induction = {
 };
 
 SIM.generator = {
-  title:'발전기 — 터빈이 돌면 전기가 만들어진다', w:660, h:300,
+  title:'발전기 — 터빈이 돌면 전기가 만들어진다', w:660, h:322,
   controls:[{key:'v',label:'터빈이 도는 빠르기',min:0,max:6,step:1,value:3}],
   note:'발전기는 <b>자석과 코일</b>로 되어 있습니다. 터빈이 돌아 자석이 코일 속에서 회전하면 코일을 지나는 자기장이 변해 <b>전자기 유도</b>로 전류가 만들어져요.',
   draw(g,p,t,W,H){
@@ -1441,9 +1461,9 @@ SIM.generator = {
     line(g,440,110,545,110,'#868e96',2); line(g,440,170,545,170,'#868e96',2);
     line(g,545,110,545,112,'#868e96',2);
     const flow=['운동 에너지','전기 에너지','빛에너지'];
-    flow.forEach((f,i)=>{ chipbox(g,60+i*200,232,180,30,'#e6fcf5','#63e6be',f,'#0b7285',12.5);
-      if(i<2) txt(g,'→',250+i*200,247,'#495057',16,'center',true); });
-    txt(g,'※ 터빈을 돌리는 에너지원에 따라 화력 발전 · 핵발전 · 수력 발전으로 나뉩니다.',60,282,'#5a6b64',12.5);
+    flow.forEach((f,i)=>{ chipbox(g,60+i*200,256,180,30,'#e6fcf5','#63e6be',f,'#0b7285',12.5);
+      if(i<2) txt(g,'→',250+i*200,271,'#495057',16,'center',true); });
+    txt(g,'※ 터빈을 돌리는 에너지원에 따라 화력 발전 · 핵발전 · 수력 발전으로 나뉩니다.',60,306,'#5a6b64',12.5);
   }
 };
 
@@ -1680,20 +1700,22 @@ SIM.ssi = {
   note:'과학 관련 사회적 쟁점에는 <b>정답이 하나로 정해져 있지 않습니다</b>. 자신의 입장을 논리적으로 설명하고, 상대의 근거를 검토하며 경청하는 태도가 중요해요.',
   draw(g,p,t,W,H){
     const D={
-      gmo:{q:'유전자변형 농산물을 계속 사용해야 할까?',
+      gmo:{ic:'🌽',q:'유전자변형 농산물을 계속 사용해야 할까?',
         a:'식량 부족 문제를 해결하기 위해 현재 생산 비율을 늘려야 한다.',
         b:'부작용을 충분히 검증하지 못했으므로 사용을 제한해야 한다.'},
-      space:{q:'우주 개발을 확대해야 할까?',
+      space:{ic:'🚀',q:'우주 개발을 확대해야 할까?',
         a:'새로운 자원이나 터전을 확보할 수 있으므로 확대해야 한다.',
         b:'관련 기술이 악용될 수 있고, 지구에도 심해처럼 개발 가능한 곳이 남아 있어 시기상조이다.'},
-      energy:{q:'신재생 에너지를 주력 에너지원으로 삼아야 할까?',
+      energy:{ic:'☀️',q:'신재생 에너지를 주력 에너지원으로 삼아야 할까?',
         a:'변환 과정에서 환경 오염 물질이 매우 적게 나오므로 확대해야 한다.',
         b:'주변 환경의 영향을 많이 받아 안정적으로 전기를 생산하기 어려워 주력으로는 적합하지 않다.'},
-      gene:{q:'유전체 분석 기술을 자유롭게 이용해도 될까?',
+      gene:{ic:'🧬',q:'유전체 분석 기술을 자유롭게 이용해도 될까?',
         a:'질병을 조기에 진단하고 개인에게 맞는 치료를 할 수 있어 이롭다.',
         b:'유전정보가 유출되어 인권침해, 보험 가입 거절 등의 문제가 생길 수 있다.'}
     }[p.k];
-    chipbox(g,30,26,600,38,'#fff9db','#ffd43b',D.q,'#856404',15);
+    g.font='30px "Malgun Gothic"'; g.textAlign='center'; g.textBaseline='middle'; g.fillStyle='#000';
+    g.fillText(D.ic,52,45);
+    chipbox(g,84,26,546,38,'#fff9db','#ffd43b',D.q,'#856404',15);
     rect(g,30,84,290,110,'#e7f5ff',12); orect(g,30,84,290,110,'#74c0fc',12,1.6);
     txt(g,'👍 찬성 쪽 입장',44,104,'#1864ab',13,'left',true);
     wrapTxt(g,D.a,44,132,262,17,'#1c2b26',13);
@@ -1875,12 +1897,13 @@ SIM.spDiv = {
     const share=w.map(v=>v/tot);
     // 서식지 그림
     rect(g,30,44,600,110,'#f1f8f4',10); orect(g,30,44,600,110,'#c3ddd2',10,1.4);
-    let idx=0; let seed=41; const rnd=()=>{ seed=(seed*1103515245+12345)%2147483648; return seed/2147483648; };
+    const slots=[]; for(let r=0;r<3;r++) for(let c=0;c<12;c++) slots.push([56+c*49, 66+r*32]);
+    let slot=0;
     share.forEach((s,i)=>{
       const cnt=Math.max(1,Math.round(s*36));
-      for(let k=0;k<cnt;k++){
+      for(let k=0;k<cnt && slot<slots.length;k++,slot++){
         g.font='17px "Malgun Gothic"'; g.textAlign='center'; g.textBaseline='middle'; g.fillStyle='#000';
-        g.fillText(icons[i], 48+rnd()*566, 60+rnd()*82);
+        g.fillText(icons[i], slots[slot][0], slots[slot][1]);
       }
     });
     // 비율 막대
@@ -1989,30 +2012,40 @@ SIM.ecoProtect = {
 /* ---------- Ⅰ-2 ---------- */
 
 SIM.agcu = {
-  title:'환원을 눈으로 — 구리 선과 질산 은 수용액', w:660, h:312,
-  note:'구리는 전자를 <b>잃어</b> 산화되고, 은 이온은 전자를 <b>얻어</b> 환원됩니다. 산소가 하나도 등장하지 않지만 훌륭한 산화·환원 반응이에요.',
+  title:'환원을 눈으로 — 구리 선과 질산 은 수용액', w:660, h:336,
+  note:'구리 1개가 전자 2개를 <b>잃어</b> 산화되고, 은 이온 2개가 그 전자를 하나씩 <b>얻어</b> 환원됩니다. 산소가 하나도 없지만 훌륭한 산화·환원 반응이에요.',
   draw(g,p,t,W,H){
-    const ph=(t%6)/6;
-    txt(g,'Cu + 2Ag⁺  →  Cu²⁺ + 2Ag',330,30,'#1c2b26',18,'center',true);
-    // 비커
-    const blue = Math.min(1,ph*1.3);
-    rect(g,150,60,360,150,'rgba(77,171,247,'+(blue*0.55)+')',10);
-    orect(g,150,60,360,150,'#adb5bd',10,1.8);
-    txt(g,'질산 은 수용액',330,226,'#5a6b64',12,'center',true);
-    // 구리 선
-    rect(g,320,50,20,120,'#e8590c',4);
-    txt(g,'구리 선',372,66,'#b35309',12,'left',true);
-    // 석출된 은
-    const n=Math.round(blue*14);
+    const ph=(t%6)/6, done = ph>0.7;
+    const blue=Math.min(1,ph*1.3);
+    txt(g,'Cu  +  2Ag⁺   →   Cu²⁺  +  2Ag',330,30,'#1c2b26',19,'center',true);
+    // 왼쪽 : 실제 모습
+    rect(g,30,56,250,150,'rgba(77,171,247,'+(blue*0.5)+')',10); orect(g,30,56,250,150,'#adb5bd',10,1.8);
+    rect(g,146,48,18,110,'#e8590c',4);
     let seed=53; const rnd=()=>{ seed=(seed*1103515245+12345)%2147483648; return seed/2147483648; };
-    for(let i=0;i<n;i++){ const s=3+rnd()*4; circle(g,318+rnd()*24,60+rnd()*106,s,'#ced4da'); }
-    if(blue>0.5) txt(g,'은(Ag)이 석출되어 은색으로 덮임',372,88,'#495057',11.5,'left');
-    // 구리 이온
-    for(let i=0;i<Math.round(blue*10);i++){ circle(g,180+rnd()*300,80+rnd()*116,7,'#4dabf7'); }
-    if(blue>0.5) txt(g,'Cu²⁺이 녹아 들어가 수용액이 푸른색',180,196,'#1864ab',11.5,'left');
-    chipbox(g,30,244,290,32,'#ffe3e3','#ffa8a8','Cu → Cu²⁺ : 전자를 잃음 → 산화','#c92a2a',13);
-    chipbox(g,340,244,290,32,'#e7f5ff','#74c0fc','Ag⁺ → Ag : 전자를 얻음 → 환원','#1864ab',13);
-    chipbox(g,30,284,600,26,'#e6fcf5','#63e6be','산소가 없어도 전자의 이동으로 산화·환원을 설명할 수 있습니다.','#0b7285',12.5);
+    for(let i=0;i<Math.round(blue*12);i++) circle(g,144+rnd()*22,60+rnd()*94,3.5+rnd()*3,'#ced4da');
+    txt(g,'질산 은 수용액 + 구리 선',155,220,'#5a6b64',12,'center',true);
+    // 오른쪽 : 입자 모형
+    rect(g,300,56,330,150,'#f8f9fa',10); orect(g,300,56,330,150,'#dee2e6',10,1.4);
+    txt(g,'입자 모형',315,72,'#868e96',11,'left',true);
+    const cuP=[370,134];
+    const agP=[[566,102],[566,166]];
+    circle(g,cuP[0],cuP[1],26, done?'#4dabf7':'#e8590c');
+    txt(g, done?'Cu²⁺':'Cu', cuP[0],cuP[1],'#fff', done?12:14,'center',true);
+    agP.forEach(q=>{ circle(g,q[0],q[1],22, done?'#ced4da':'#adb5bd'); txt(g, done?'Ag':'Ag⁺', q[0],q[1], done?'#212529':'#fff',12,'center',true); });
+    // 전자 2개
+    [0,1].forEach(k=>{
+      const q=Math.min(1,Math.max(0, ph*1.5 - k*0.1));
+      if(q<=0.05 || q>=0.96) return;
+      const x=cuP[0]+(agP[k][0]-cuP[0])*q;
+      const y=cuP[1]+(agP[k][1]-cuP[1])*q - Math.sin(q*Math.PI)*34;
+      circle(g,x,y,9,'#4c6ef5'); txt(g,'e⁻',x,y,'#fff',9.5,'center',true);
+    });
+    txt(g, done? '전자 2개가 모두 옮겨 갔습니다' : '전자 2개가 구리 → 은 이온으로 이동', 465, 194,'#495057',11.5,'center',true);
+    chipbox(g,30,236,290,32,'#e7f5ff','#74c0fc','수용액이 푸르게 변함 (Cu²⁺)','#1864ab',12.5);
+    chipbox(g,340,236,290,32,'#f1f3f5','#adb5bd','구리 선이 은색으로 덮임 (Ag 석출)','#495057',12.5);
+    chipbox(g,30,276,290,32,'#ffe3e3','#ffa8a8','Cu → Cu²⁺ : 전자를 잃음 → 산화','#c92a2a',12.5);
+    chipbox(g,340,276,290,32,'#e7f5ff','#74c0fc','Ag⁺ → Ag : 전자를 얻음 → 환원','#1864ab',12.5);
+    txt(g,'※ 은 이온 2개가 전자를 하나씩 받아야 하므로, 구리 1개가 전자 2개를 내놓습니다.',30,320,'#868e96',11.5);
   }
 };
 
@@ -2031,15 +2064,17 @@ SIM.acidProp = {
     // 비커
     rect(g,60,60,240,140,'#ffe3e3',10); orect(g,60,60,240,140,'#fa5252',10,1.8);
     txt(g,'묽은 염산(산 수용액)',180,216,'#c92a2a',12,'center',true);
-    let seed=61; const rnd=()=>{ seed=(seed*1103515245+12345)%2147483648; return seed/2147483648; };
-    for(let i=0;i<9;i++){ const x=76+rnd()*208, y=76+rnd()*112; circle(g,x,y,10,'#fa5252'); txt(g,'H⁺',x,y,'#fff',9.5,'center',true); }
+    [[82,80],[82,124],[82,168],[116,102],[116,146],[278,80],[278,124],[278,168],[244,102],[244,146]]
+      .forEach(q=>{ circle(g,q[0],q[1],11,'#fa5252'); txt(g,'H⁺',q[0],q[1],'#fff',9.5,'center',true); });
     // 시험 대상
     g.font='40px "Malgun Gothic"'; g.textAlign='center'; g.textBaseline='middle'; g.fillStyle='#000';
     g.fillText({metal:'🔩',caco3:'🥚',lit:'📄',elec:'🔌'}[p.k],180,130);
-    arrow(g,312,130,352,130,'#495057',2.5);
-    g.font='42px "Malgun Gothic"'; g.fillStyle='#000'; g.fillText(D.ic,400,130);
-    chipbox(g,450,86,180,44,'#fff9db','#ffd43b','결과','#856404',13);
-    wrapTxt(g,D.r,364,180,266,16,'#c92a2a',12.5);
+    arrow(g,306,130,330,130,'#495057',2.5);
+    rect(g,340,74,290,132,'#fffdf5',12); orect(g,340,74,290,132,'#ffd43b',12,1.6);
+    chipbox(g,352,84,266,26,'#fff9db','#ffd43b','결과','#856404',12.5);
+    g.font='38px "Malgun Gothic"'; g.textAlign='center'; g.textBaseline='middle'; g.fillStyle='#000';
+    g.fillText(D.ic,386,150);
+    wrapTxt(g,D.r,420,142,196,16,'#c92a2a',12.5);
     txt(g,'🔎 왜 그럴까?',30,244,'#5a6b64',12.5,'left',true);
     wrapTxt(g,D.w,30,266,600,17,'#1c2b26',13.5);
     chipbox(g,30,292,600,24,'#ffe3e3','#ffa8a8','산 : 수용액에서 수소 이온(H⁺)을 내놓는 물질','#c92a2a',12.5);
@@ -2060,14 +2095,16 @@ SIM.baseProp = {
     }[p.k];
     rect(g,60,60,240,140,'#d0ebff',10); orect(g,60,60,240,140,'#4dabf7',10,1.8);
     txt(g,'수산화 나트륨 수용액(염기)',180,216,'#1864ab',12,'center',true);
-    let seed=67; const rnd=()=>{ seed=(seed*1103515245+12345)%2147483648; return seed/2147483648; };
-    for(let i=0;i<9;i++){ const x=76+rnd()*208, y=76+rnd()*112; circle(g,x,y,11,'#4dabf7'); txt(g,'OH⁻',x,y,'#fff',8.5,'center',true); }
+    [[82,80],[82,124],[82,168],[118,102],[118,146],[278,80],[278,124],[278,168],[242,102],[242,146]]
+      .forEach(q=>{ circle(g,q[0],q[1],12,'#4dabf7'); txt(g,'OH⁻',q[0],q[1],'#fff',8.5,'center',true); });
     g.font='40px "Malgun Gothic"'; g.textAlign='center'; g.textBaseline='middle'; g.fillStyle='#000';
     g.fillText({metal:'🔩',prot:'🥚',lit:'📄',elec:'🔌'}[p.k],180,130);
-    arrow(g,312,130,352,130,'#495057',2.5);
-    g.font='42px "Malgun Gothic"'; g.fillStyle='#000'; g.fillText(D.ic,400,130);
-    chipbox(g,450,86,180,44,'#fff9db','#ffd43b','결과','#856404',13);
-    wrapTxt(g,D.r,364,180,266,16,'#1864ab',12.5);
+    arrow(g,306,130,330,130,'#495057',2.5);
+    rect(g,340,74,290,132,'#fffdf5',12); orect(g,340,74,290,132,'#ffd43b',12,1.6);
+    chipbox(g,352,84,266,26,'#fff9db','#ffd43b','결과','#856404',12.5);
+    g.font='38px "Malgun Gothic"'; g.textAlign='center'; g.textBaseline='middle'; g.fillStyle='#000';
+    g.fillText(D.ic,386,150);
+    wrapTxt(g,D.r,420,142,196,16,'#1864ab',12.5);
     txt(g,'🔎 왜 그럴까?',30,244,'#5a6b64',12.5,'left',true);
     wrapTxt(g,D.w,30,266,600,17,'#1c2b26',13.5);
     chipbox(g,30,292,600,24,'#d0ebff','#74c0fc','염기 : 수용액에서 수산화 이온(OH⁻)을 내놓는 물질','#1864ab',12.5);
@@ -2202,7 +2239,7 @@ SIM.ecosystem = {
     arrow(g,296,105,364,105,D.c,3,10);
     arrow(g,364,125,296,125,'#ced4da',2,8);
     txt(g,D.dir,330,88,D.c,11.5,'center',true);
-    txt(g,'(반대 방향 영향도 있어요)',330,142,'#adb5bd',10.5,'center');
+    txt(g,'반대 방향으로도 영향을 줍니다',330,166,'#adb5bd',11,'center');
     txt(g,'🔎 어떤 일이 일어나나요?',30,214,'#5a6b64',12.5,'left',true);
     wrapTxt(g,D.d,30,236,600,17,'#1c2b26',13.5);
     chipbox(g,30,278,290,28,'#d3f9d8','#69db7c','생물요소 : 생산자·소비자·분해자','#2b8a3e',12);
@@ -2337,7 +2374,7 @@ SIM.trophicLevel = {
       txt(g,d[2],256,y+22, isW?'#b35309':'#5a6b64',13,'left',true);
       if(i<n-1) arrow(g,150,y-2,150,y-10,'#2f8f6b',2.5,8);
     });
-    txt(g,'↑ 에너지 이동',30,120,'#adb5bd',11,'left');
+    txt(g,'↑ 에너지가 이동하는 방향',150,210-(n-1)*54-16,'#adb5bd',11,'center');
     const lvl = p.k==='bird' ? '3차 소비자' : '2차 소비자';
     chipbox(g,400,120,230,44,'#fff9db','#ffd43b','족제비 = '+lvl,'#856404',15);
     wrapTxt(g,'족제비는 무엇을 먹느냐에 따라 영양단계가 달라집니다. 그래서 먹이그물에서는 한 생물이 여러 영양단계에 걸치기도 해요.',400,190,230,16,'#1c2b26',12);
@@ -2395,7 +2432,7 @@ SIM.warming = {
     const ice = Math.round(60*(1-cut*0.7));
     // 그래프
     const L=45,B=176,Wd=580,Ht=118;
-    axes(g,L,B,Wd,Ht,'연도','기온 상승');
+    axes(g,L,B,Wd,Ht,'','기온 상승');
     g.strokeStyle='#e03131'; g.lineWidth=2.6; g.beginPath();
     for(let i=0;i<=100;i++){
       const x=L+i/100*Wd, v=rise*Math.pow(i/100,1.6);
@@ -2404,7 +2441,7 @@ SIM.warming = {
     g.stroke();
     dash(g,L,B-1.5/5*Ht,L+Wd,B-1.5/5*Ht,'#f59f00',1.6);
     txt(g,'1.5 ℃ 목표선',L+Wd,B-1.5/5*Ht-10,'#b35309',10.5,'right');
-    [['2025',0],['2050',0.5],['2100',1]].forEach(q=> txt(g,q[0],L+q[1]*Wd,B+14,'#868e96',10.5,'center'));
+    [['2025년',0],['2050년',0.5],['2100년',1]].forEach(q=> txt(g,q[0],L+q[1]*Wd,B+16,'#868e96',10.5,'center'));
     const c = rise>3?'#c92a2a': rise>2?'#e8590c':'#2f9e44';
     txt(g,'2100년 기온 상승  +'+rise.toFixed(1)+' ℃',L+Wd,52,c,15,'right',true);
     // 결과 지표
